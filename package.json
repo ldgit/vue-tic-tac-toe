@@ -1,0 +1,46 @@
+{
+  "name": "tic-tac-toe-vue",
+  "version": "1.0.0",
+  "description": "Ultimate tic-tac-toe in Vue",
+  "main": "index.js",
+  "homepage": "https://ldgit.github.io/vue-tic-tac-toe/",
+  "scripts": {
+    "test:file": "mocha --require @babel/register",
+    "test": "npm run test:file 'test/**/*.test.{js,vue}'",
+    "test:watch": "argus",
+    "build": "webpack --mode=development",
+    "build:prod": "webpack --mode=production",
+    "start": "webpack-dev-server --open --mode=development",
+    "lint": "eslint --ext .vue,.js ./",
+    "test:all": "npm run lint &&  npm t",
+    "deploy": "npm run test:all && npm run build:prod && rm -rf docs/* && cp -R dist/. docs/"
+  },
+  "author": "Danko Lučić",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/ldgit/vue-tic-tac-toe.git"
+  },
+  "dependencies": {
+    "node-sass": "^4.9.3",
+    "sass-loader": "^7.1.0",
+    "vue": "^2.5.17"
+  },
+  "devDependencies": {
+    "@babel/core": "^7.0.0",
+    "@babel/preset-env": "^7.0.0",
+    "@babel/register": "^7.0.0",
+    "babel-loader": "^8.0.2",
+    "clean-webpack-plugin": "^0.1.19",
+    "css-loader": "^1.0.0",
+    "eslint": "^5.5.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-import": "^2.14.0",
+    "file-loader": "^2.0.0",
+    "html-webpack-plugin": "^3.2.0",
+    "style-loader": "^0.23.0",
+    "webpack": "^4.17.2",
+    "webpack-cli": "^3.1.0",
+    "webpack-dev-server": "^3.1.8"
+  }
+}
