@@ -9,6 +9,13 @@ module.exports = {
         'ignoreUrls': false,
         'ignoreComments': false,
       }],
+      "vue/max-attributes-per-line": [4, {
+        "singleline": 4,
+        "multiline": {
+          "max": 4,
+          "allowFirstLine": false
+        }
+      }],
     },
     'env': {
         'browser': true,
