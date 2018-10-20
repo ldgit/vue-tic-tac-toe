@@ -1,11 +1,11 @@
 <template>
-  <button :data-testid="testId" class="square" type="button">
-    {{ value }}
+  <button :data-testid="testId" @click="onClick" class="square" type="button">
+    <slot></slot>
   </button>
 </template>
 
 <script>
 export default {
-  props: ['testId', 'value'],
+  props: ['testId', 'onClick'],
 };
 </script>
