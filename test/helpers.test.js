@@ -21,7 +21,7 @@ describe('calculateWinner', () => {
       assert.strictEqual(calculateWinner(squaresWithLine(0, [null, 'X', 'X'])), null);
       assert.strictEqual(calculateWinner(squaresWithLine(1, ['X', '0', 'O'])), null);
       assert.strictEqual(calculateWinner(squaresWithLine(2, ['0', null, 'O'])), null);
-    }
+    },
   );
 
   [
@@ -33,7 +33,7 @@ describe('calculateWinner', () => {
       `should declare ${fixture.winner} the winner when winner ${fixture.winner} has line of three`,
       () => {
         assert.strictEqual(calculateWinner(fixture.squares), fixture.winner);
-      }
+      },
     );
   });
 
@@ -46,7 +46,7 @@ describe('calculateWinner', () => {
       `should declare ${fixture.winner} the winner when winner ${fixture.winner} has row of three`,
       () => {
         assert.strictEqual(calculateWinner(fixture.squares), fixture.winner);
-      }
+      },
     );
   });
 
@@ -59,11 +59,11 @@ describe('calculateWinner', () => {
       `should declare ${fixture.winner} the winner when winner ${fixture.winner} has diagonal of three`,
       () => {
         assert.strictEqual(calculateWinner(fixture.squares), fixture.winner);
-      }
+      },
     );
   });
 
-  test('should throw error for invalid squares configuration');
+  test('should throw error for invalid squares configuration', () => {});
 
   function threeInLine(line, squareValue) {
     return squaresWithLine(line, Array(3).fill(squareValue));
@@ -142,7 +142,7 @@ describe('calculateUltimateWinner', () => {
       boards[2].squares = ['X', null, null, null, 'X', null, null, null, 'X'];
 
       assert.strictEqual(calculateUltimateWinner(boards), null);
-    }
+    },
   );
 
   test('should return X if X won top row of boards', () => {
@@ -193,7 +193,7 @@ describe('getColorClass', () => {
     () => {
       const board = { squares: emptySquares(), isActive: false };
       assert.equal(getColorClass(board), 'disabled-board');
-    }
+    },
   );
 
   test('should return "o-won-board" if board is won by O', () => {
@@ -217,21 +217,21 @@ describe('getSquareClasses', () => {
     () => {
       assert.equal(getSquareClasses({ value: 'X', specialIcons: false }), 'square');
       assert.equal(getSquareClasses({ value: 'O', specialIcons: false }), 'square');
-    }
+    },
   );
 
   test(
     'should return square-vue-icon and square classes if given value of X and specialIcons true',
     () => {
       assert.equal(getSquareClasses({ value: 'X', specialIcons: true }), 'square-vue-icon square');
-    }
+    },
   );
 
   test(
     'should return square-vue-icon and square classes if given value of X and specialIcons true',
     () => {
       assert.equal(getSquareClasses({ value: 'O', specialIcons: true }), 'square-react-icon square');
-    }
+    },
   );
 });
 
@@ -241,21 +241,21 @@ describe('getPlayerEmblemClasses', () => {
     () => {
       assert.strictEqual(getPlayerEmblemClasses({ value: 'X', specialIcons: false }), 'no-icon');
       assert.strictEqual(getPlayerEmblemClasses({ value: 'O', specialIcons: false }), 'no-icon');
-    }
+    },
   );
 
   test(
     'should return square-vue-icon and square classes if given value of X and specialIcons true',
     () => {
       assert.equal(getPlayerEmblemClasses({ value: 'X', specialIcons: true }), 'vue-icon');
-    }
+    },
   );
 
   test(
     'should return square-vue-icon and square classes if given value of X and specialIcons true',
     () => {
       assert.equal(getPlayerEmblemClasses({ value: 'O', specialIcons: true }), 'react-icon');
-    }
+    },
   );
 });
 
