@@ -10,25 +10,31 @@ import {
 describe('calculateWinner', () => {
   const initialSquares = Array(9).fill(null);
 
-  it('should return null when given initial empty squares', () => {
+  test('should return null when given initial empty squares', () => {
     assert.strictEqual(calculateWinner(initialSquares), null);
   });
 
-  it('should return null when only two in horizontal line for any given player', () => {
-    assert.strictEqual(calculateWinner(squaresWithLine(0, ['X', 'X', 'O'])), null);
-    assert.strictEqual(calculateWinner(squaresWithLine(0, [null, 'X', 'X'])), null);
-    assert.strictEqual(calculateWinner(squaresWithLine(1, ['X', '0', 'O'])), null);
-    assert.strictEqual(calculateWinner(squaresWithLine(2, ['0', null, 'O'])), null);
-  });
+  test(
+    'should return null when only two in horizontal line for any given player',
+    () => {
+      assert.strictEqual(calculateWinner(squaresWithLine(0, ['X', 'X', 'O'])), null);
+      assert.strictEqual(calculateWinner(squaresWithLine(0, [null, 'X', 'X'])), null);
+      assert.strictEqual(calculateWinner(squaresWithLine(1, ['X', '0', 'O'])), null);
+      assert.strictEqual(calculateWinner(squaresWithLine(2, ['0', null, 'O'])), null);
+    }
+  );
 
   [
     { winner: 'X', squares: threeInLine(0, 'X') },
     { winner: 'X', squares: threeInLine(2, 'X') },
     { winner: 'O', squares: threeInLine(1, 'O') },
   ].forEach((fixture) => {
-    it(`should declare ${fixture.winner} the winner when winner ${fixture.winner} has line of three`, () => {
-      assert.strictEqual(calculateWinner(fixture.squares), fixture.winner);
-    });
+    test(
+      `should declare ${fixture.winner} the winner when winner ${fixture.winner} has line of three`,
+      () => {
+        assert.strictEqual(calculateWinner(fixture.squares), fixture.winner);
+      }
+    );
   });
 
   [
@@ -36,9 +42,12 @@ describe('calculateWinner', () => {
     { winner: 'X', squares: threeInRow(2, 'X') },
     { winner: 'O', squares: threeInRow(1, 'O') },
   ].forEach((fixture) => {
-    it(`should declare ${fixture.winner} the winner when winner ${fixture.winner} has row of three`, () => {
-      assert.strictEqual(calculateWinner(fixture.squares), fixture.winner);
-    });
+    test(
+      `should declare ${fixture.winner} the winner when winner ${fixture.winner} has row of three`,
+      () => {
+        assert.strictEqual(calculateWinner(fixture.squares), fixture.winner);
+      }
+    );
   });
 
   [
@@ -46,12 +55,15 @@ describe('calculateWinner', () => {
     { winner: 'O', squares: threeInDiagonal('O') },
     { winner: 'O', squares: threeInDiagonal('O', 'reverse') },
   ].forEach((fixture) => {
-    it(`should declare ${fixture.winner} the winner when winner ${fixture.winner} has diagonal of three`, () => {
-      assert.strictEqual(calculateWinner(fixture.squares), fixture.winner);
-    });
+    test(
+      `should declare ${fixture.winner} the winner when winner ${fixture.winner} has diagonal of three`,
+      () => {
+        assert.strictEqual(calculateWinner(fixture.squares), fixture.winner);
+      }
+    );
   });
 
-  it('should throw error for invalid squares configuration');
+  test('should throw error for invalid squares configuration');
 
   function threeInLine(line, squareValue) {
     return squaresWithLine(line, Array(3).fill(squareValue));
@@ -108,12 +120,12 @@ describe('calculateWinner', () => {
 });
 
 describe('calculateUltimateWinner', () => {
-  it('should return null for initial empty boards', () => {
+  test('should return null for initial empty boards', () => {
     const boards = Array(9).fill().map(() => ({ squares: emptySquares(), isActive: false }));
     assert.strictEqual(calculateUltimateWinner(boards), null);
   });
 
-  it('should return null if ony two boards won', () => {
+  test('should return null if ony two boards won', () => {
     const boards = Array(9).fill().map(() => ({ squares: emptySquares(), isActive: false }));
     boards[1].squares = ['O', 'O', 'O', ...Array(6).fill(null)];
     boards[3].squares = [...Array(6).fill(null), 'O', 'O', 'O'];
@@ -121,16 +133,19 @@ describe('calculateUltimateWinner', () => {
     assert.strictEqual(calculateUltimateWinner(boards), null);
   });
 
-  it('should return null if top row of boards won, but by different players', () => {
-    const boards = Array(9).fill().map(() => ({ squares: emptySquares(), isActive: false }));
-    boards[0].squares = ['X', 'X', 'X', ...Array(6).fill(null)];
-    boards[1].squares = [...Array(6).fill(null), 'O', 'O', 'O'];
-    boards[2].squares = ['X', null, null, null, 'X', null, null, null, 'X'];
+  test(
+    'should return null if top row of boards won, but by different players',
+    () => {
+      const boards = Array(9).fill().map(() => ({ squares: emptySquares(), isActive: false }));
+      boards[0].squares = ['X', 'X', 'X', ...Array(6).fill(null)];
+      boards[1].squares = [...Array(6).fill(null), 'O', 'O', 'O'];
+      boards[2].squares = ['X', null, null, null, 'X', null, null, null, 'X'];
 
-    assert.strictEqual(calculateUltimateWinner(boards), null);
-  });
+      assert.strictEqual(calculateUltimateWinner(boards), null);
+    }
+  );
 
-  it('should return X if X won top row of boards', () => {
+  test('should return X if X won top row of boards', () => {
     const boards = Array(9).fill().map(() => ({ squares: emptySquares(), isActive: false }));
     boards[0].squares = ['X', 'X', 'X', ...Array(6).fill(null)];
     boards[1].squares = [...Array(6).fill(null), 'X', 'X', 'X'];
@@ -139,7 +154,7 @@ describe('calculateUltimateWinner', () => {
     assert.strictEqual(calculateUltimateWinner(boards), 'X');
   });
 
-  it('should return O if O won left column of boards', () => {
+  test('should return O if O won left column of boards', () => {
     const boards = Array(9).fill().map(() => ({ squares: emptySquares(), isActive: false }));
     boards[0].squares = ['O', null, null, 'O', null, null, 'O', null, null];
     boards[3].squares = [null, null, 'O', null, 'O', null, 'O', null, null];
@@ -148,7 +163,7 @@ describe('calculateUltimateWinner', () => {
     assert.strictEqual(calculateUltimateWinner(boards), 'O');
   });
 
-  it('should return X if X won diagonal boards', () => {
+  test('should return X if X won diagonal boards', () => {
     const boards = Array(9).fill().map(() => ({ squares: emptySquares(), isActive: false }));
     boards[0].squares = ['X', null, null, 'X', null, null, 'X', null, null];
     boards[4].squares = [null, null, 'X', null, 'X', null, 'X', null, null];
@@ -157,7 +172,7 @@ describe('calculateUltimateWinner', () => {
     assert.strictEqual(calculateUltimateWinner(boards), 'X');
   });
 
-  it('should return O if O won reverse diagonal boards', () => {
+  test('should return O if O won reverse diagonal boards', () => {
     const boards = Array(9).fill().map(() => ({ squares: emptySquares(), isActive: false }));
     boards[2].squares = ['O', null, null, 'O', null, null, 'O', null, null];
     boards[4].squares = [null, null, 'O', null, 'O', null, 'O', null, null];
@@ -168,24 +183,27 @@ describe('calculateUltimateWinner', () => {
 });
 
 describe('getColorClass', () => {
-  it('should return nothing if board is active and not won', () => {
+  test('should return nothing if board is active and not won', () => {
     const board = { squares: emptySquares(), isActive: true };
     assert.strictEqual(getColorClass(board), '');
   });
 
-  it('should return "disabled-board" if board is not active and not won', () => {
-    const board = { squares: emptySquares(), isActive: false };
-    assert.equal(getColorClass(board), 'disabled-board');
-  });
+  test(
+    'should return "disabled-board" if board is not active and not won',
+    () => {
+      const board = { squares: emptySquares(), isActive: false };
+      assert.equal(getColorClass(board), 'disabled-board');
+    }
+  );
 
-  it('should return "o-won-board" if board is won by O', () => {
+  test('should return "o-won-board" if board is won by O', () => {
     const inactiveBoard = { squares: oWinningSquares(), isActive: false };
     const activeBoard = { squares: oWinningSquares(), isActive: true };
     assert.equal(getColorClass(inactiveBoard), 'o-won-board');
     assert.equal(getColorClass(activeBoard), 'o-won-board');
   });
 
-  it('should return "x-won-board" if board is won by X', () => {
+  test('should return "x-won-board" if board is won by X', () => {
     const inactiveBoard = { squares: xWinningSquares(), isActive: false };
     const activeBoard = { squares: xWinningSquares(), isActive: true };
     assert.equal(getColorClass(inactiveBoard), 'x-won-board');
@@ -194,33 +212,51 @@ describe('getColorClass', () => {
 });
 
 describe('getSquareClasses', () => {
-  it('should just return square if given value of X or O and specialIcons false', () => {
-    assert.equal(getSquareClasses({ value: 'X', specialIcons: false }), 'square');
-    assert.equal(getSquareClasses({ value: 'O', specialIcons: false }), 'square');
-  });
+  test(
+    'should just return square if given value of X or O and specialIcons false',
+    () => {
+      assert.equal(getSquareClasses({ value: 'X', specialIcons: false }), 'square');
+      assert.equal(getSquareClasses({ value: 'O', specialIcons: false }), 'square');
+    }
+  );
 
-  it('should return square-vue-icon and square classes if given value of X and specialIcons true', () => {
-    assert.equal(getSquareClasses({ value: 'X', specialIcons: true }), 'square-vue-icon square');
-  });
+  test(
+    'should return square-vue-icon and square classes if given value of X and specialIcons true',
+    () => {
+      assert.equal(getSquareClasses({ value: 'X', specialIcons: true }), 'square-vue-icon square');
+    }
+  );
 
-  it('should return square-vue-icon and square classes if given value of X and specialIcons true', () => {
-    assert.equal(getSquareClasses({ value: 'O', specialIcons: true }), 'square-react-icon square');
-  });
+  test(
+    'should return square-vue-icon and square classes if given value of X and specialIcons true',
+    () => {
+      assert.equal(getSquareClasses({ value: 'O', specialIcons: true }), 'square-react-icon square');
+    }
+  );
 });
 
 describe('getPlayerEmblemClasses', () => {
-  it('should return empty string if given value of X or O and specialIcons false', () => {
-    assert.strictEqual(getPlayerEmblemClasses({ value: 'X', specialIcons: false }), 'no-icon');
-    assert.strictEqual(getPlayerEmblemClasses({ value: 'O', specialIcons: false }), 'no-icon');
-  });
+  test(
+    'should return empty string if given value of X or O and specialIcons false',
+    () => {
+      assert.strictEqual(getPlayerEmblemClasses({ value: 'X', specialIcons: false }), 'no-icon');
+      assert.strictEqual(getPlayerEmblemClasses({ value: 'O', specialIcons: false }), 'no-icon');
+    }
+  );
 
-  it('should return square-vue-icon and square classes if given value of X and specialIcons true', () => {
-    assert.equal(getPlayerEmblemClasses({ value: 'X', specialIcons: true }), 'vue-icon');
-  });
+  test(
+    'should return square-vue-icon and square classes if given value of X and specialIcons true',
+    () => {
+      assert.equal(getPlayerEmblemClasses({ value: 'X', specialIcons: true }), 'vue-icon');
+    }
+  );
 
-  it('should return square-vue-icon and square classes if given value of X and specialIcons true', () => {
-    assert.equal(getPlayerEmblemClasses({ value: 'O', specialIcons: true }), 'react-icon');
-  });
+  test(
+    'should return square-vue-icon and square classes if given value of X and specialIcons true',
+    () => {
+      assert.equal(getPlayerEmblemClasses({ value: 'O', specialIcons: true }), 'react-icon');
+    }
+  );
 });
 
 function oWinningSquares() {
