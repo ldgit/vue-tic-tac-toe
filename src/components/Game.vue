@@ -46,7 +46,7 @@ export default {
     },
     player: function () {
       const { squares, xIsNext } = this;
-      return calculateWinner(squares) || xIsNext ? 'X' : 'O';
+      return calculateWinner(squares) || (xIsNext ? 'X' : 'O');
     },
   }
 };
