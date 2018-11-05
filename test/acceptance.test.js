@@ -28,6 +28,7 @@ describe('Tic-tac-toe game', () => {
     beforeEach(() => {
       mount(Game, {
         attachToDocument: true,
+        sync: true,
       });
       app = document.querySelector('.game');
     });
@@ -100,24 +101,32 @@ describe('Tic-tac-toe game', () => {
       clickEmptySquare(sel(app, 'bottomMiddleSquare')).assertIsFilledWith('');
     });
 
-    test.skip('time travel: highlight time travel button for current move', () => {
+
+    test('time travel: highlight time travel button for current move', () => {
       expect(selectByText(app, 'button', 'Go to game start').className).to.have.string('current-move-button');
       clickEmptySquare(sel(app, 'centerMiddleSquare')).assertIsFilledWith('X');
-      expect(selectByText(app, 'button', 'Go to game start').className).to.not.have.string('current-move-button');
-      expect(selectByText(app, 'button', 'Go to move 1').className).to.have.string('current-move-button');
 
-      click(selectByText(app, 'button', 'Go to game start'));
-      expect(selectByText(app, 'button', 'Go to game start').className).to.have.string('current-move-button');
-      expect(selectByText(app, 'button', 'Go to move 1').className).to.not.have.string('current-move-button');
+      return Vue.nextTick().then(() => {
+        expect(selectByText(app, 'button', 'Go to game start').className).to.not.have.string('current-move-button');
+        expect(selectByText(app, 'button', 'Go to move 1').className).to.have.string('current-move-button');
+
+        click(selectByText(app, 'button', 'Go to game start'));
+
+        return Vue.nextTick();
+      }).then(() => {
+        expect(selectByText(app, 'button', 'Go to game start').className).to.have.string('current-move-button');
+        expect(selectByText(app, 'button', 'Go to move 1').className).to.not.have.string('current-move-button');
+      });
     });
 
-    test.skip(
+    test(
       'time travel: X wins, then time travel two moves back, then O wins',
       () => {
         playMiddleVerticalXWin();
         assertGameStatus('Winner', 'X');
 
         click(selectByText(app, 'button', 'Go to move 3'));
+
         assertGameStatus('Next player', 'O');
         // Board now:
         // O X
@@ -129,6 +138,12 @@ describe('Tic-tac-toe game', () => {
         assertGameStatus('Winner', 'O');
       },
     );
+
+    test('time travel: correctly determine next player when time traveling', () => {
+      clickEmptySquare(sel(app, 'centerMiddleSquare')).assertIsFilledWith('X');
+      click(selectByText(app, 'button', 'Go to game start'));
+      assertGameStatus('Next player', 'X');
+    });
 
     function playMiddleVerticalXWin() {
       // Final board
