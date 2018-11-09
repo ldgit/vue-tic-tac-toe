@@ -1,12 +1,18 @@
 <template>
   <div>
     <h1>Hello Vue</h1>
-
+    <game />
   </div>
 </template>
 
 <script>
+import Game from './components/Game.vue';
 
+export default {
+  components: {
+    game: Game,
+  },
+};
 </script>
 
 <style lang="sass">
