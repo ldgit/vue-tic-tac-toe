@@ -415,7 +415,7 @@ describe('Tic-tac-toe game', () => {
       expect(selectByText(app, 'button', 'Go to move 1').className).to.not.have.string('current-move-button');
     });
 
-    test.skip('when game is won, disable further inputs on all local boards', () => {
+    test('when game is won, disable further inputs on all local boards', () => {
       playGameWherePlayerOneWins({});
       const topMiddleBoard = sel(app, 'topMiddleBoard');
       clickEmptySquare(sel(topMiddleBoard, 'topLeftSquare')).assertIsFilledWith('');
@@ -441,7 +441,7 @@ describe('Tic-tac-toe game', () => {
       clickEmptySquare(sel(topLeftBoard, 'topLeftSquare')).assertIsFilledWith('X');
     });
 
-    test.skip(
+    test(
       'clicking on "Vue vs. React?" button toggles special mode on and off',
       () => {
         const specialModeToggle = selectByText(app, 'button', 'Vue vs. React?');

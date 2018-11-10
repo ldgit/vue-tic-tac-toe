@@ -1,9 +1,16 @@
 <template>
-  <button :data-testid="testId" @click="onClick" class="square" type="button"><slot></slot></button>
+  <button :data-testid="testId" @click="onClick" :class="squareClasses" type="button">{{ value }}</button>
 </template>
 
 <script>
+import { getSquareClasses } from '../helpers';
+
 export default {
-  props: ['testId', 'onClick'],
+  props: ['value', 'testId', 'onClick', 'specialIcons'],
+  computed: {
+    squareClasses: function () {
+      return getSquareClasses(this);
+    },
+  },
 };
 </script>
