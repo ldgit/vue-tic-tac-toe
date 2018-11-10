@@ -1,7 +1,7 @@
 <template>
   <div class="game">
     <div class="game-board">
-      <board :squares="history[currentStep].squares" :on-click="handleSquareClick"/>
+      <board :squares="history[currentStep].squares" v-on:square-click="handleSquareClick" />
     </div>
     <div class="game-info">
       <status :description="description" :player="player" />

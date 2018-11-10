@@ -1,16 +1,24 @@
 <template>
-  <div>
-    <h1>Hello Vue</h1>
-    <game />
+  <div class="table">
+    <div class="table-cell table-small-padding">
+      <h1>Ultimate tic-tac-toe in Vue!</h1>
+      <ultimate-game />
+    </div>
+    <div class="table-cell table-large-padding">
+      <h2>The classic!</h2>
+      <game />
+    </div>
   </div>
 </template>
 
 <script>
 import Game from './components/Game.vue';
+import UltimateGame from './components/UltimateGame.vue';
 
 export default {
   components: {
     game: Game,
+    "ultimate-game": UltimateGame,
   },
 };
 </script>

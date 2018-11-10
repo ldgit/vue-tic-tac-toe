@@ -6,11 +6,13 @@ import path from 'path';
 import Vue from 'vue';
 import { mount } from '@vue/test-utils';
 import Game from '../src/components/Game.vue';
+import UltimateGame from '../src/components/UltimateGame.vue';
 import {
   sel, clickOnElement, selectByText, triggerChange,
 } from './test-utils';
 
 Vue.config.productionTip = false;
+Vue.config.silent = true;
 
 describe('Tic-tac-toe game', () => {
   let app;
@@ -160,10 +162,13 @@ describe('Tic-tac-toe game', () => {
     }
   });
 
-  describe.skip('ultimate tic-tac-toe', () => {
+  describe('ultimate tic-tac-toe', () => {
     beforeEach(() => {
-      // // eslint-disable-next-line react/jsx-filename-extension
-      // ReactDom.render(<UltimateGame />, app);
+      mount(UltimateGame, {
+        attachToDocument: true,
+        sync: true,
+      });
+      app = document.querySelector('.ultimate-game');
     });
 
     test('player can\'t play on already played square', () => {
@@ -335,7 +340,7 @@ describe('Tic-tac-toe game', () => {
       },
     );
 
-    test(
+    test.skip(
       'simple time travel: play one move, then go to game start, then play a different move',
       () => {
         const topLeftBoard = sel(app, 'topLeftBoard');
@@ -345,7 +350,7 @@ describe('Tic-tac-toe game', () => {
       },
     );
 
-    test(
+    test.skip(
       'time travel: X wins, then back three turns, then continue playing',
       () => {
         const bottomLeftBoard = sel(app, 'bottomLeftBoard');
@@ -374,7 +379,7 @@ describe('Tic-tac-toe game', () => {
       },
     );
 
-    test(
+    test.skip(
       'time travel: X wins in 23. moves, go to game start, Y wins in 24 moves',
       () => {
         playGameWhereXWins();
@@ -384,7 +389,7 @@ describe('Tic-tac-toe game', () => {
     );
 
     // eslint-disable-next-line max-len
-    test(
+    test.skip(
       'time travel: all time travel buttons must be preserved after they are clicked until next move is played',
       () => {
         playGameWhereXWins();
@@ -398,7 +403,7 @@ describe('Tic-tac-toe game', () => {
       },
     );
 
-    test('time travel: highlight time travel button for current move', () => {
+    test.skip('time travel: highlight time travel button for current move', () => {
       const topMiddleBoard = sel(app, 'topMiddleBoard');
       expect(selectByText(app, 'button', 'Go to game start').className).to.have.string('current-move-button');
       clickEmptySquare(sel(topMiddleBoard, 'topMiddleSquare')).assertIsFilledWith('X');
@@ -410,14 +415,14 @@ describe('Tic-tac-toe game', () => {
       expect(selectByText(app, 'button', 'Go to move 1').className).to.not.have.string('current-move-button');
     });
 
-    test('when game is won, disable further inputs on all local boards', () => {
+    test.skip('when game is won, disable further inputs on all local boards', () => {
       playGameWherePlayerOneWins({});
       const topMiddleBoard = sel(app, 'topMiddleBoard');
       clickEmptySquare(sel(topMiddleBoard, 'topLeftSquare')).assertIsFilledWith('');
       assertGameStatus('Winner', 'X');
     });
 
-    test('time travel re-enables previously won local-board', () => {
+    test.skip('time travel re-enables previously won local-board', () => {
       const topLeftBoard = sel(app, 'topLeftBoard');
       const topMiddleBoard = sel(app, 'topMiddleBoard');
       const topRightBoard = sel(app, 'topRightBoard');
@@ -436,7 +441,7 @@ describe('Tic-tac-toe game', () => {
       clickEmptySquare(sel(topLeftBoard, 'topLeftSquare')).assertIsFilledWith('X');
     });
 
-    test(
+    test.skip(
       'clicking on "Vue vs. React?" button toggles special mode on and off',
       () => {
         const specialModeToggle = selectByText(app, 'button', 'Vue vs. React?');
@@ -460,7 +465,7 @@ describe('Tic-tac-toe game', () => {
       },
     );
 
-    describe('save and load functionality', () => {
+    describe.skip('save and load functionality', () => {
       test('can export current game state', () => {
         const topLeftBoard = sel(app, 'topLeftBoard');
         const topMiddleBoard = sel(app, 'topMiddleBoard');
