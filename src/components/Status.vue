@@ -10,9 +10,9 @@ import { getPlayerEmblemClasses } from '../helpers';
 export default {
   props: ['description', 'player', 'specialIcons'],
   computed: {
-    playerIconClass: function () {
+    playerIconClass() {
       const { player, specialIcons } = this;
-      
+
       return getPlayerEmblemClasses({ value: player, specialIcons });
     },
   },

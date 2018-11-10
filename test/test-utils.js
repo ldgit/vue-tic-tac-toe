@@ -24,7 +24,7 @@ export function clickOnElement(window, element) {
 
 export function triggerChange(element) {
   assert.ok(element, 'Element that the change event should be triggered on does not exist');
-  Simulate.change(element);
+  // TODO vue trigger change
 }
 
 export function selectByText(container, selector, text) {

@@ -18,7 +18,7 @@ import UltimateGame from './components/UltimateGame.vue';
 export default {
   components: {
     game: Game,
-    "ultimate-game": UltimateGame,
+    'ultimate-game': UltimateGame,
   },
 };
 </script>

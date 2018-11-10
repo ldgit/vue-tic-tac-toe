@@ -16,6 +16,7 @@ module.exports = {
           "allowFirstLine": false
         }
       }],
+      "vue/require-prop-types": ['warn'],
     },
     'env': {
         'browser': true,

@@ -1,14 +1,14 @@
 <template>
   <div class="game">
     <div class="game-board">
-      <board :squares="history[currentStep].squares" v-on:square-click="handleSquareClick" />
+      <board :squares="history[currentStep].squares" @square-click="handleSquareClick" />
     </div>
     <div class="game-info">
       <status :description="description" :player="player" />
       <ol>
         <li v-for="(item, moveIndex) in history" :key="moveIndex">
-          <time-travel-button 
-            :move-index="moveIndex" 
+          <time-travel-button
+            :move-index="moveIndex"
             :current-step="currentStep"
             :on-click="() => { jumpTo(moveIndex) }"
           />
@@ -30,7 +30,7 @@ export default {
     status: Status,
     'time-travel-button': TimeTravelButton,
   },
-  data: function () {
+  data() {
     return {
       history: [
         { squares: Array(9).fill(null) },
@@ -39,8 +39,22 @@ export default {
       currentStep: 0,
     };
   },
+  computed: {
+    description: function description() {
+      const { history, currentStep } = this;
+      const { squares } = history[currentStep];
+
+      return calculateWinner(squares) ? 'Winner' : 'Next player';
+    },
+    player: function player() {
+      const { history, xIsNext, currentStep } = this;
+      const { squares } = history[currentStep];
+
+      return calculateWinner(squares) || (xIsNext ? 'X' : 'O');
+    },
+  },
   methods: {
-    handleSquareClick: function (squareIndex) {
+    handleSquareClick: function handleSquareClick(squareIndex) {
       const { history, xIsNext, currentStep } = this;
       const gameHistory = history.slice(0, currentStep + 1);
       const { squares } = gameHistory[currentStep];
@@ -51,31 +65,17 @@ export default {
 
       const newSquares = squares.slice();
 
-      newSquares[squareIndex] = xIsNext ? 'X' : 'O';  
+      newSquares[squareIndex] = xIsNext ? 'X' : 'O';
       gameHistory.push({ squares: newSquares });
 
       this.history = gameHistory;
       this.xIsNext = !xIsNext;
       this.currentStep += 1;
     },
-    jumpTo: function(stepNumber) {
+    jumpTo: function jumpTo(stepNumber) {
       this.currentStep = stepNumber;
       this.xIsNext = stepNumber % 2 === 0;
     },
   },
-  computed: {
-    description: function () {
-      const { history, currentStep } = this;
-      const { squares } = history[currentStep];
-
-      return calculateWinner(squares) ? 'Winner' : 'Next player';
-    },
-    player: function () {
-      const { history, xIsNext, currentStep } = this;
-      const { squares } = history[currentStep];
-
-      return calculateWinner(squares) || (xIsNext ? 'X' : 'O');
-    },
-  }
 };
 </script>
