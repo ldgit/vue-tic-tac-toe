@@ -48,7 +48,11 @@
 
         <br>
         <ol>
-          <!-- TODO: History goes here -->
+          <li v-for="(historyItem, moveNumber) in state.history" :key="moveNumber">
+            <time-travel-button :on-click="jumpTo.bind(this, moveNumber)" :move-index="moveNumber"
+                                :current-step="state.pointInHistory"
+            />
+          </li>
         </ol>
       </div>
     </div>
@@ -58,6 +62,7 @@
 <script>
 import Board from './Board.vue';
 import Status from './Status.vue';
+import TimeTravelButton from './TimeTravelButton.vue';
 import Ultimate from '../game';
 import { calculateUltimateWinner, getColorClass } from '../helpers';
 
@@ -65,6 +70,7 @@ export default {
   components: {
     board: Board,
     status: Status,
+    'time-travel-button': TimeTravelButton,
   },
   data() {
     return {
@@ -98,6 +104,16 @@ export default {
     },
     toggleSpecialIcons() {
       this.state.specialIcons = !this.state.specialIcons;
+    },
+    shouldHighlight(moveNumber) {
+      const { pointInHistory } = this.state;
+      return pointInHistory === moveNumber;
+    },
+    jumpTo(pointInHistory) {
+      this.state = Ultimate.timeTravel(this.state, { pointInHistory });
+    },
+    getHistoryButtonDescription(moveNumber) {
+      return moveNumber === 0 ? 'aaGo to game start' : `Go to move ${moveNumber}`;
     },
   },
 };

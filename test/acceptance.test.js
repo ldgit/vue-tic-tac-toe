@@ -340,7 +340,7 @@ describe('Tic-tac-toe game', () => {
       },
     );
 
-    test.skip(
+    test(
       'simple time travel: play one move, then go to game start, then play a different move',
       () => {
         const topLeftBoard = sel(app, 'topLeftBoard');
@@ -350,7 +350,7 @@ describe('Tic-tac-toe game', () => {
       },
     );
 
-    test.skip(
+    test(
       'time travel: X wins, then back three turns, then continue playing',
       () => {
         const bottomLeftBoard = sel(app, 'bottomLeftBoard');
@@ -379,7 +379,7 @@ describe('Tic-tac-toe game', () => {
       },
     );
 
-    test.skip(
+    test(
       'time travel: X wins in 23. moves, go to game start, Y wins in 24 moves',
       () => {
         playGameWhereXWins();
@@ -388,8 +388,7 @@ describe('Tic-tac-toe game', () => {
       },
     );
 
-    // eslint-disable-next-line max-len
-    test.skip(
+    test(
       'time travel: all time travel buttons must be preserved after they are clicked until next move is played',
       () => {
         playGameWhereXWins();
@@ -403,7 +402,7 @@ describe('Tic-tac-toe game', () => {
       },
     );
 
-    test.skip('time travel: highlight time travel button for current move', () => {
+    test('time travel: highlight time travel button for current move', () => {
       const topMiddleBoard = sel(app, 'topMiddleBoard');
       expect(selectByText(app, 'button', 'Go to game start').className).to.have.string('current-move-button');
       clickEmptySquare(sel(topMiddleBoard, 'topMiddleSquare')).assertIsFilledWith('X');
@@ -411,8 +410,11 @@ describe('Tic-tac-toe game', () => {
       expect(selectByText(app, 'button', 'Go to move 1').className).to.have.string('current-move-button');
 
       click(selectByText(app, 'button', 'Go to game start'));
-      expect(selectByText(app, 'button', 'Go to game start').className).to.have.string('current-move-button');
-      expect(selectByText(app, 'button', 'Go to move 1').className).to.not.have.string('current-move-button');
+
+      return Vue.nextTick().then(() => {
+        expect(selectByText(app, 'button', 'Go to game start').className).to.have.string('current-move-button');
+        expect(selectByText(app, 'button', 'Go to move 1').className).to.not.have.string('current-move-button');
+      });
     });
 
     test('when game is won, disable further inputs on all local boards', () => {
@@ -422,7 +424,7 @@ describe('Tic-tac-toe game', () => {
       assertGameStatus('Winner', 'X');
     });
 
-    test.skip('time travel re-enables previously won local-board', () => {
+    test('time travel re-enables previously won local-board', () => {
       const topLeftBoard = sel(app, 'topLeftBoard');
       const topMiddleBoard = sel(app, 'topMiddleBoard');
       const topRightBoard = sel(app, 'topRightBoard');
