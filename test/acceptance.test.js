@@ -467,8 +467,8 @@ describe('Tic-tac-toe game', () => {
       },
     );
 
-    describe.skip('save and load functionality', () => {
-      test('can export current game state', () => {
+    describe('save and load functionality', () => {
+      test.skip('can export current game state', () => {
         const topLeftBoard = sel(app, 'topLeftBoard');
         const topMiddleBoard = sel(app, 'topMiddleBoard');
         const topRightBoard = sel(app, 'topRightBoard');

@@ -44,9 +44,16 @@
         />
         <br>
         <button type="button" @click="toggleSpecialIcons">Vue vs. React?</button>
+
         <br><br>
 
+        <span>
+          <load-game :handle-load-game-click="handleLoadGameClick" />
+          <br>
+        </span>
+
         <br>
+
         <ol>
           <li v-for="(historyItem, moveNumber) in state.history" :key="moveNumber">
             <time-travel-button :on-click="jumpTo.bind(this, moveNumber)" :move-index="moveNumber"
@@ -63,6 +70,7 @@
 import Board from './Board.vue';
 import Status from './Status.vue';
 import TimeTravelButton from './TimeTravelButton.vue';
+import LoadGame from './LoadGame.vue';
 import Ultimate from '../game';
 import { calculateUltimateWinner, getColorClass } from '../helpers';
 
@@ -71,6 +79,7 @@ export default {
     board: Board,
     status: Status,
     'time-travel-button': TimeTravelButton,
+    'load-game': LoadGame,
   },
   data() {
     return {
@@ -114,6 +123,9 @@ export default {
     },
     getHistoryButtonDescription(moveNumber) {
       return moveNumber === 0 ? 'aaGo to game start' : `Go to move ${moveNumber}`;
+    },
+    handleLoadGameClick(newState) {
+      this.state = newState;
     },
   },
 };
