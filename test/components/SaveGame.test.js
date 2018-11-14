@@ -2,7 +2,7 @@ import assert from 'assert';
 import Vue from 'vue';
 import { mount } from '@vue/test-utils';
 import {
-  find, sel, selectByText, clickOnElement,
+  sel, selectByText, clickOnElement,
 } from '../test-utils';
 import SaveGame from '../../src/components/SaveGame.vue';
 
@@ -74,7 +74,7 @@ describe('Load component', () => {
 
       click(selectByText(app, 'button', 'Save'));
       click(selectByText(app, 'button', 'Close'));
-      
+
       assert.strictEqual(selectByText(app, 'button', 'Close'), null, 'close should not be displayed');
       assertTextareaIsHidden(app);
     });
@@ -88,19 +88,8 @@ describe('Load component', () => {
     });
   }
 
-  function assertNoImportGameTextarea() {
-    assert.strictEqual(find(app, 'importGameTextarea'), null, 'textarea for importing a game should not render');
-  }
-
   function assertTextareaIsHidden(appElement) {
     assert.strictEqual(getTextArea(appElement), undefined, 'textarea should not render');
-  }
-
-  function createAppElement() {
-    const appElement = document.createElement('div');
-    document.body.appendChild(appElement);
-
-    return appElement;
   }
 });
 
