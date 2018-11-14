@@ -50,6 +50,7 @@
         <span>
           <load-game :handle-load-game-click="handleLoadGameClick" />
           <br>
+          <save-game :game-state="state" />
         </span>
 
         <br>
@@ -71,6 +72,7 @@ import Board from './Board.vue';
 import Status from './Status.vue';
 import TimeTravelButton from './TimeTravelButton.vue';
 import LoadGame from './LoadGame.vue';
+import SaveGameVue from './SaveGame.vue';
 import Ultimate from '../game';
 import { calculateUltimateWinner, getColorClass } from '../helpers';
 
@@ -80,6 +82,7 @@ export default {
     status: Status,
     'time-travel-button': TimeTravelButton,
     'load-game': LoadGame,
+    'save-game': SaveGameVue,
   },
   data() {
     return {
