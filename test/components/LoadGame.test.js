@@ -11,7 +11,6 @@ Vue.config.silent = true;
 
 describe('Load component', () => {
   let app;
-  let gameState;
   let click;
   let propsData;
 
@@ -27,7 +26,6 @@ describe('Load component', () => {
       propsData,
     });
     app = sel(document, 'loadGame');
-    gameState = {};
   });
 
   afterEach(() => {
@@ -50,17 +48,6 @@ describe('Load component', () => {
 
       const textarea = getTextArea(app);
       assert.ok(textarea, 'textarea not found');
-      assert.deepEqual(textarea, find(app, 'importGameTextarea'), 'textarea should be for importing another game');
-    });
-
-    it.skip('should hide save game textarea', () => {
-      gameState.fruit = ['apples', 'oranges'];
-      click(selectByText(app, 'button', 'Save'));
-
-      click(selectByText(app, 'button', 'Load'));
-
-      const textarea = getTextArea(app);
-      assert.strictEqual(find(app, 'exportGameTextarea'), null, 'textarea for exporting the game should not render');
       assert.deepEqual(textarea, find(app, 'importGameTextarea'), 'textarea should be for importing another game');
     });
 
