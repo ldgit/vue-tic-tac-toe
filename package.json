@@ -10,7 +10,8 @@
     "start": "webpack-dev-server --open --mode=development",
     "lint": "eslint --ext .vue,.js ./",
     "test:all": "npm run lint && npm t",
-    "deploy": "npm run test:all && npm run build:prod && rm -rf docs/* && cp -R dist/. docs/"
+    "deploy": "npm run test:all && npm run build:prod && rm -rf docs/* && cp -R dist/. docs/",
+    "coverage": "npm t -- --coverage --coverageReporters=text-lcov | coveralls"
   },
   "author": "Danko Lučić",
   "license": "MIT",
@@ -29,6 +30,7 @@
     "babel-loader": "^8.0.4",
     "chai": "^4.2.0",
     "clean-webpack-plugin": "^1.0.0",
+    "coveralls": "^3.0.2",
     "css-loader": "^1.0.1",
     "eslint": "^5.10.0",
     "eslint-config-airbnb-base": "^13.1.0",
