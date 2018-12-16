@@ -13,6 +13,7 @@ import {
 
 Vue.config.productionTip = false;
 Vue.config.silent = true;
+Vue.config.async = false;
 
 describe('Tic-tac-toe game', () => {
   let app;
@@ -108,17 +109,12 @@ describe('Tic-tac-toe game', () => {
       expect(selectByText(app, 'button', 'Go to game start').className).to.have.string('current-move-button');
       clickEmptySquare(sel(app, 'centerMiddleSquare')).assertIsFilledWith('X');
 
-      return Vue.nextTick().then(() => {
-        expect(selectByText(app, 'button', 'Go to game start').className).to.not.have.string('current-move-button');
-        expect(selectByText(app, 'button', 'Go to move 1').className).to.have.string('current-move-button');
+      expect(selectByText(app, 'button', 'Go to game start').className).to.not.have.string('current-move-button');
+      expect(selectByText(app, 'button', 'Go to move 1').className).to.have.string('current-move-button');
 
-        click(selectByText(app, 'button', 'Go to game start'));
-
-        return Vue.nextTick();
-      }).then(() => {
-        expect(selectByText(app, 'button', 'Go to game start').className).to.have.string('current-move-button');
-        expect(selectByText(app, 'button', 'Go to move 1').className).to.not.have.string('current-move-button');
-      });
+      click(selectByText(app, 'button', 'Go to game start'));
+      expect(selectByText(app, 'button', 'Go to game start').className).to.have.string('current-move-button');
+      expect(selectByText(app, 'button', 'Go to move 1').className).to.not.have.string('current-move-button');
     });
 
     test(
@@ -411,10 +407,8 @@ describe('Tic-tac-toe game', () => {
 
       click(selectByText(app, 'button', 'Go to game start'));
 
-      return Vue.nextTick().then(() => {
-        expect(selectByText(app, 'button', 'Go to game start').className).to.have.string('current-move-button');
-        expect(selectByText(app, 'button', 'Go to move 1').className).to.not.have.string('current-move-button');
-      });
+      expect(selectByText(app, 'button', 'Go to game start').className).to.have.string('current-move-button');
+      expect(selectByText(app, 'button', 'Go to move 1').className).to.not.have.string('current-move-button');
     });
 
     test('when game is won, disable further inputs on all local boards', () => {
