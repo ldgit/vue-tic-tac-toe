@@ -1,6 +1,7 @@
 # Ultimate Tic-tac-toe using Vue
 
 [![Travis (.org)](https://img.shields.io/travis/ldgit/vue-tic-tac-toe.svg?style=flat-square)](https://travis-ci.org/ldgit/vue-tic-tac-toe)
+[![Coveralls github](https://img.shields.io/coveralls/github/ldgit/vue-tic-tac-toe.svg?style=flat-square)](https://coveralls.io/github/ldgit/vue-tic-tac-toe)
 
 Tic-tac-toe and [Ultimate Tic-tac-toe](https://en.wikipedia.org/wiki/Ultimate_tic-tac-toe) games implemented using Vue library.
 
